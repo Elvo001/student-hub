@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CITAM Grade 12 · ICT Student Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f1a;
+      --bg2: #13162a;
+      --bg3: #1a1e35;
+      --border: rgba(255,255,255,0.08);
+      --border2: rgba(255,255,255,0.14);
+      --text: #f0f2ff;
+      --text2: rgba(240,242,255,0.6);
+      --text3: rgba(240,242,255,0.35);
+      --accent: #5b8dee;
+      --accent2: #7fd4b4;
+      --amber: #f5c542;
+      --coral: #f07060;
+      --purple: #a78bfa;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,15,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+    }
+    .nav-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .nav-title span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: var(--bg3); }
+
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(91,141,238,0.12);
+      border: 0.5px solid rgba(91,141,238,0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero h1 .accent2 { color: var(--accent2); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text2);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .stat-item { }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    /* SECTIONS */
+    section { padding: 3rem 0; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .section-pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 10px;
+      font-weight: 500;
+      background: var(--bg3);
+      color: var(--text3);
+      border: 0.5px solid var(--border);
+    }
+
+    /* WORD OF DAY */
+    .wod-card {
+      background: linear-gradient(135deg, rgba(91,141,238,0.12), rgba(127,212,180,0.08));
+      border: 0.5px solid rgba(91,141,238,0.25);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .wod-left { flex: 1; min-width: 200px; }
+    .wod-tag { font-size: 11px; color: var(--accent); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .wod-word {
+      font-family: 'Syne', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .wod-pos { font-size: 13px; color: var(--text3); font-style: italic; }
+    .wod-right { flex: 2; min-width: 250px; }
+    .wod-def { font-size: 15px; color: var(--text2); line-height: 1.7; }
+    .wod-example { margin-top: 8px; font-size: 13px; color: var(--text3); font-style: italic; }
+
+    /* TABS */
+    .tabs-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 0.5px solid var(--border);
+      background: transparent;
+      color: var(--text2);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .tab-btn:hover { border-color: var(--border2); color: var(--text); }
+    .tab-btn.active { background: rgba(91,141,238,0.15); color: var(--accent); border-color: rgba(91,141,238,0.35); }
+
+    /* RESOURCE CARDS */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    .res-card {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .res-card:hover {
+      border-color: var(--border2);
+      background: var(--bg3);
+      transform: translateY(-2px);
+    }
+    .res-card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .badge-new { background: rgba(127,212,180,0.15); color: var(--accent2); border: 0.5px solid rgba(127,212,180,0.3); }
+    .badge-hot { background: rgba(240,112,96,0.15); color: var(--coral); border: 0.5px solid rgba(240,112,96,0.3); }
+    .badge-free { background: rgba(245,197,66,0.12); color: var(--amber); border: 0.5px solid rgba(245,197,66,0.25); }
+    .res-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 0.75rem;
+    }
+    .i-blue { background: rgba(91,141,238,0.15); color: var(--accent); }
+    .i-green { background: rgba(127,212,180,0.15); color: var(--accent2); }
+    .i-amber { background: rgba(245,197,66,0.12); color: var(--amber); }
+    .i-purple { background: rgba(167,139,250,0.15); color: var(--purple); }
+    .i-coral { background: rgba(240,112,96,0.15); color: var(--coral); }
+    .res-title { font-weight: 500; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+    .res-desc { font-size: 12px; color: var(--text2); line-height: 1.5; margin-bottom: 8px; }
+    .res-url { font-size: 11px; color: var(--text3); display: flex; align-items: center; gap: 4px; }
+    .res-url svg { width: 10px; height: 10px; }
+
+    /* TOOLS STRIP */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .tool-card {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .tool-card:hover { border-color: var(--border2); background: var(--bg3); }
+    .tool-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .tool-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .tool-meta { font-size: 11px; color: var(--text3); margin-top: 1px; }
+
+    /* QUIZ */
+    .quiz-wrap {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .quiz-counter { font-size: 11px; color: var(--text3); margin-bottom: 0.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+    .quiz-q { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 1.25rem; line-height: 1.55; }
+    .quiz-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .quiz-opt {
+      padding: 10px 14px;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text2);
+      cursor: pointer;
+      background: var(--bg3);
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+      text-align: left;
+    }
+    .quiz-opt:hover:not(:disabled) { border-color: var(--border2); color: var(--text); }
+    .quiz-opt.correct { background: rgba(127,212,180,0.12); border-color: rgba(127,212,180,0.4); color: var(--accent2); }
+    .quiz-opt.wrong { background: rgba(240,112,96,0.1); border-color: rgba(240,112,96,0.35); color: var(--coral); }
+    .quiz-feedback {
+      margin-top: 1rem;
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+      padding: 10px 14px;
+      background: var(--bg3);
+      border-radius: var(--radius-sm);
+      border: 0.5px solid var(--border);
+      display: none;
+    }
+    .quiz-next {
+      margin-top: 1rem;
+      padding: 9px 18px;
+      background: rgba(91,141,238,0.15);
+      color: var(--accent);
+      border: 0.5px solid rgba(91,141,238,0.3);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+    .quiz-next:hover { background: rgba(91,141,238,0.22); }
+    .quiz-score { font-size: 13px; color: var(--text3); margin-top: 0.75rem; }
+
+    /* TIP */
+    .tip-strip {
+      background: rgba(245,197,66,0.07);
+      border: 0.5px solid rgba(245,197,66,0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 1.5rem;
+    }
+    .tip-icon { color: var(--amber); font-size: 16px; margin-top: 2px; flex-shrink: 0; }
+    .tip-text { font-size: 13px; color: rgba(245,197,66,0.8); line-height: 1.6; }
+    .tip-text strong { color: var(--amber); }
+
+    /* CAREERS */
+    .career-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .career-card {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+      display: block;
+    }
+    .career-card:hover { border-color: var(--border2); background: var(--bg3); }
+    .career-emoji { font-size: 28px; margin-bottom: 0.75rem; }
+    .career-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 5px; }
+    .career-desc { font-size: 12px; color: var(--text2); line-height: 1.55; margin-bottom: 8px; }
+    .career-salary { font-size: 11px; color: var(--accent2); font-weight: 500; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 0.5px solid var(--border); margin: 0; }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 0.5px solid var(--border);
+      margin-top: 2rem;
+    }
+    .footer-text { font-size: 12px; color: var(--text3); line-height: 1.7; }
+    .footer-text a { color: var(--accent); text-decoration: none; }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      .container { padding: 0 1rem; }
+      .quiz-opts { grid-template-columns: 1fr; }
+      .wod-card { flex-direction: column; gap: 0.75rem; }
+    }
+
+    /* SCROLL ANIMATION */
+    .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">C12</div>
+    <div class="nav-title">CITAM <span>ICT Hub</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+    <li><a href="#careers">Careers</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">CITAM School · Grade 12 ICT Department</div>
+  <h1>Learn smarter.<br><span class="accent">Build</span> things.<br><span class="accent2">Go further.</span></h1>
+  <p class="hero-sub">Your curated hub for ICT resources, study tools, career insights, and daily brain challenges — all free, all productive.</p>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Free resources</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Topic areas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">Daily</div>
+      <div class="stat-label">Quiz updates</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WORD OF DAY -->
+  <section id="wod" class="fade-in">
+    <div class="section-header">
+      <div class="section-title">Tech word of the day</div>
+      <div class="section-pill" id="wod-date"></div>
+    </div>
+    <div class="wod-card">
+      <div class="wod-left">
+        <div class="wod-tag">Today's term</div>
+        <div class="wod-word" id="wod-word">Algorithm</div>
+        <div class="wod-pos" id="wod-pos">noun · Computer Science</div>
+      </div>
+      <div class="wod-right">
+        <div class="wod-def" id="wod-def">A step-by-step set of instructions that a computer follows to solve a problem or complete a task — like a recipe, but for machines. Every app you use runs on thousands of algorithms working together.</div>
+        <div class="wod-example" id="wod-example">"Google's search algorithm processes billions of queries every second to find the most relevant results."</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- RESOURCES -->
+  <section id="resources" class="fade-in">
+    <div class="section-header">
+      <div class="section-title">Learning resources</div>
+      <div class="section-pill">All free</div>
+    </div>
+    <div class="tabs-row">
+      <button class="tab-btn active" onclick="filterCards('all',this)">All</button>
+      <button class="tab-btn" onclick="filterCards('coding',this)">Coding</button>
+      <button class="tab-btn" onclick="filterCards('science',this)">Science</button>
+      <button class="tab-btn" onclick="filterCards('maths',this)">Maths</button>
+      <button class="tab-btn" onclick="filterCards('career',this)">Careers</button>
+      <button class="tab-btn" onclick="filterCards('general',this)">General knowledge</button>
+    </div>
+    <div class="cards-grid" id="cards-grid">
+
+      <a href="https://scratch.mit.edu" target="_blank" class="res-card" data-cat="coding">
+        <span class="res-card-badge badge-new">Start here</span>
+        <div class="res-icon i-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="res-title">Scratch</div>
+        <div class="res-desc">Build games and animations visually — the best intro to programming logic.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> scratch.mit.edu</div>
+      </a>
+
+      <a href="https://www.khanacademy.org/computing/computer-programming" target="_blank" class="res-card" data-cat="coding">
+        <span class="res-card-badge badge-hot">Popular</span>
+        <div class="res-icon i-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="res-title">Khan Academy Coding</div>
+        <div class="res-desc">Free courses in HTML, CSS, JavaScript and SQL — learn at your own pace with exercises.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> khanacademy.org</div>
+      </a>
+
+      <a href="https://code.org" target="_blank" class="res-card" data-cat="coding">
+        <div class="res-icon i-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="res-title">Code.org</div>
+        <div class="res-desc">Fun coding challenges and Hour of Code activities for all skill levels.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> code.org</div>
+      </a>
+
+      <a href="https://www.w3schools.com" target="_blank" class="res-card" data-cat="coding">
+        <span class="res-card-badge badge-free">Free</span>
+        <div class="res-icon i-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        </div>
+        <div class="res-title">W3Schools</div>
+        <div class="res-desc">Learn HTML, CSS, Python, JavaScript and more with live examples you can edit.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> w3schools.com</div>
+      </a>
+
+      <a href="https://phet.colorado.edu" target="_blank" class="res-card" data-cat="science">
+        <div class="res-icon i-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+        </div>
+        <div class="res-title">PhET Simulations</div>
+        <div class="res-desc">Interactive science and maths simulations from the University of Colorado — free.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> phet.colorado.edu</div>
+      </a>
+
+      <a href="https://www.ted.com/topics/science" target="_blank" class="res-card" data-cat="science">
+        <div class="res-icon i-coral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <div class="res-title">TED-Ed Science</div>
+        <div class="res-desc">Short, animated talks on biology, physics, chemistry and the natural world.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> ted.com</div>
+      </a>
+
+      <a href="https://www.khanacademy.org/math" target="_blank" class="res-card" data-cat="maths">
+        <span class="res-card-badge badge-hot">Popular</span>
+        <div class="res-icon i-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="res-title">Khan Maths</div>
+        <div class="res-desc">Every maths topic from arithmetic to calculus, with exercises and instant feedback.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> khanacademy.org</div>
+      </a>
+
+      <a href="https://www.desmos.com/calculator" target="_blank" class="res-card" data-cat="maths">
+        <div class="res-icon i-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="res-title">Desmos</div>
+        <div class="res-desc">A beautiful, free graphing calculator — visualise any equation instantly in your browser.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> desmos.com</div>
+      </a>
+
+      <a href="https://www.futurelearn.com" target="_blank" class="res-card" data-cat="career">
+        <span class="res-card-badge badge-new">Explore</span>
+        <div class="res-icon i-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <div class="res-title">FutureLearn</div>
+        <div class="res-desc">Free online courses from top universities — explore careers before you choose them.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> futurelearn.com</div>
+      </a>
+
+      <a href="https://www.nationalgeographic.com/science" target="_blank" class="res-card" data-cat="general">
+        <div class="res-icon i-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div class="res-title">National Geographic</div>
+        <div class="res-desc">Stunning articles on nature, geography, space, and world cultures.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> nationalgeographic.com</div>
+      </a>
+
+      <a href="https://www.wikipedia.org" target="_blank" class="res-card" data-cat="general">
+        <div class="res-icon i-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        </div>
+        <div class="res-title">Wikipedia</div>
+        <div class="res-desc">Start any research here — the world's largest free encyclopaedia in hundreds of languages.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> wikipedia.org</div>
+      </a>
+
+      <a href="https://www.youtube.com/@TEDEd" target="_blank" class="res-card" data-cat="general">
+        <div class="res-icon i-coral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </div>
+        <div class="res-title">TED-Ed YouTube</div>
+        <div class="res-desc">Animated educational videos on every subject — short, engaging, and curriculum-linked.</div>
+        <div class="res-url"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> youtube.com/@TEDEd</div>
+      </a>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TOOLS -->
+  <section id="tools" class="fade-in">
+    <div class="section-header">
+      <div class="section-title">Study tools</div>
+      <div class="section-pill">Bookmarkable</div>
+    </div>
+    <div class="tools-grid">
+      <a href="https://www.notion.so" target="_blank" class="tool-card">
+        <div class="tool-icon i-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div><div class="tool-name">Notion</div><div class="tool-meta">Notes & organisation</div></div>
+      </a>
+      <a href="https://quizlet.com" target="_blank" class="tool-card">
+        <div class="tool-icon i-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div><div class="tool-name">Quizlet</div><div class="tool-meta">Flashcards & study sets</div></div>
+      </a>
+      <a href="https://www.geogebra.org" target="_blank" class="tool-card">
+        <div class="tool-icon i-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+        </div>
+        <div><div class="tool-name">GeoGebra</div><div class="tool-meta">Geometry & algebra</div></div>
+      </a>
+      <a href="https://www.typing.com" target="_blank" class="tool-card">
+        <div class="tool-icon i-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6" y2="10"/><line x1="10" y1="10" x2="10" y2="10"/><line x1="14" y1="10" x2="14" y2="10"/><line x1="18" y1="10" x2="18" y2="10"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+        </div>
+        <div><div class="tool-name">Typing.com</div><div class="tool-meta">Improve typing speed</div></div>
+      </a>
+      <a href="https://www.wolframalpha.com" target="_blank" class="tool-card">
+        <div class="tool-icon i-coral">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div><div class="tool-name">Wolfram Alpha</div><div class="tool-meta">Solve anything step-by-step</div></div>
+      </a>
+      <a href="https://www.codecademy.com" target="_blank" class="tool-card">
+        <div class="tool-icon i-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div><div class="tool-name">Codecademy</div><div class="tool-meta">Interactive coding courses</div></div>
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- QUIZ -->
+  <section id="quiz" class="fade-in">
+    <div class="section-header">
+      <div class="section-title">Daily brain challenge</div>
+      <div class="section-pill" id="quiz-score-pill">ICT · General · Science</div>
+    </div>
+    <div class="quiz-wrap">
+      <div class="quiz-counter" id="quiz-counter">Question 1 of 5</div>
+      <div class="quiz-q" id="quiz-q">Loading question...</div>
+      <div class="quiz-opts" id="quiz-opts"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <button class="quiz-next" id="quiz-next" onclick="nextQuestion()">Next question →</button>
+      <div class="quiz-score" id="quiz-score-display"></div>
+    </div>
+
+    <div class="tip-strip">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text"><strong>Study tip:</strong> The Pomodoro technique — 25 minutes of focused work, then a 5-minute break — is proven to boost concentration and reduce burnout. Try it tonight with your revision.</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CAREERS -->
+  <section id="careers" class="fade-in">
+    <div class="section-header">
+      <div class="section-title">ICT career paths</div>
+      <div class="section-pill">Where could you go?</div>
+    </div>
+    <div class="career-grid">
+      <a href="https://www.futurelearn.com/subjects/it-and-computer-science-courses/software-development" target="_blank" class="career-card">
+        <div class="career-emoji">💻</div>
+        <div class="career-title">Software Developer</div>
+        <div class="career-desc">Build apps, websites, and systems used by millions. One of the most in-demand skills globally.</div>
+        <div class="career-salary">Starting: KES 80K–150K/mo</div>
+      </a>
+      <a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="career-card">
+        <div class="career-emoji">📊</div>
+        <div class="career-title">Data Scientist</div>
+        <div class="career-desc">Find patterns in data to help businesses and governments make smarter decisions.</div>
+        <div class="career-salary">Starting: KES 100K–200K/mo</div>
+      </a>
+      <a href="https://www.coursera.org/professional-certificates/google-cybersecurity" target="_blank" class="career-card">
+        <div class="career-emoji">🔐</div>
+        <div class="career-title">Cybersecurity Analyst</div>
+        <div class="career-desc">Protect systems and data from hackers and cyber threats — a growing field worldwide.</div>
+        <div class="career-salary">Starting: KES 90K–180K/mo</div>
+      </a>
+      <a href="https://www.futurelearn.com/subjects/it-and-computer-science-courses/artificial-intelligence" target="_blank" class="career-card">
+        <div class="career-emoji">🤖</div>
+        <div class="career-title">AI / ML Engineer</div>
+        <div class="career-desc">Build the intelligent systems that power voice assistants, self-driving cars, and medical diagnosis tools.</div>
+        <div class="career-salary">Starting: KES 150K–300K/mo</div>
+      </a>
+      <a href="https://www.coursera.org/professional-certificates/google-ux-design" target="_blank" class="career-card">
+        <div class="career-emoji">🎨</div>
+        <div class="career-title">UX / UI Designer</div>
+        <div class="career-desc">Design digital experiences that are intuitive and beautiful — where technology meets creativity.</div>
+        <div class="career-salary">Starting: KES 70K–140K/mo</div>
+      </a>
+      <a href="https://aws.amazon.com/training/learn-about/cloud/" target="_blank" class="career-card">
+        <div class="career-emoji">☁️</div>
+        <div class="career-title">Cloud Engineer</div>
+        <div class="career-desc">Manage the internet infrastructure that powers everything from Netflix to mobile banking.</div>
+        <div class="career-salary">Starting: KES 120K–250K/mo</div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-text">
+    CITAM School · Grade 12 ICT Department &nbsp;·&nbsp; Built to keep you learning, not scrolling.<br>
+    <a href="https://elvo001.github.io/student-hub">elvo001.github.io/student-hub</a>
+  </div>
+</footer>
+
+<script>
+  // WORD OF DAY rotation
+  const words = [
+    { word: 'Algorithm', pos: 'noun · Computer Science', def: 'A step-by-step set of instructions that a computer follows to solve a problem or complete a task — like a recipe, but for machines. Every app you use runs on thousands of algorithms.', example: '"Google\'s search algorithm processes billions of queries every second."' },
+    { word: 'Binary', pos: 'noun · Computing', def: 'A number system using only 0s and 1s — the language computers actually speak at their lowest level. All images, text, and videos are ultimately stored as binary.', example: '"The letter A is stored in binary as 01000001."' },
+    { word: 'Cloud computing', pos: 'noun · Technology', def: 'Storing and processing data on remote servers accessed over the internet, rather than on your local device. It\'s why you can access your files from any device.', example: '"Google Drive and iCloud are examples of cloud computing."' },
+    { word: 'Encryption', pos: 'noun · Cybersecurity', def: 'The process of converting data into a coded form so only authorised parties can read it. It protects your passwords, messages, and bank details online.', example: '"WhatsApp uses end-to-end encryption to protect your messages."' },
+    { word: 'API', pos: 'noun · Software Development', def: 'Application Programming Interface — a way for two different programs to talk to each other and share data. Like a waiter who takes your order to the kitchen and brings back your food.', example: '"The weather app uses an API to get live forecast data."' },
+    { word: 'Machine learning', pos: 'noun · Artificial Intelligence', def: 'A type of AI where computers learn from data and improve their performance over time without being explicitly programmed for every task.', example: '"Netflix uses machine learning to recommend shows you\'ll enjoy."' },
+    { word: 'Database', pos: 'noun · Computing', def: 'An organised collection of structured information stored electronically, designed so data can be easily accessed, managed, and updated.', example: '"A school keeps student records in a database."' },
+  ];
+  const today = new Date();
+  const dayIdx = today.getDay();
+  const w = words[dayIdx % words.length];
+  document.getElementById('wod-word').textContent = w.word;
+  document.getElementById('wod-pos').textContent = w.pos;
+  document.getElementById('wod-def').textContent = w.def;
+  document.getElementById('wod-example').textContent = w.example;
+  document.getElementById('wod-date').textContent = today.toLocaleDateString('en-KE', { weekday: 'long', day: 'numeric', month: 'short' });
+
+  // CARD FILTER
+  function filterCards(cat, el) {
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.res-card').forEach(c => {
+      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  // QUIZ
+  const questions = [
+    { q: 'What does CPU stand for?', opts: ['Central Power Unit', 'Central Processing Unit', 'Computer Processing Unit', 'Core Processing Unit'], correct: 1, explain: 'CPU = Central Processing Unit. It\'s the brain of the computer, responsible for executing all instructions.' },
+    { q: 'Which of these is NOT a programming language?', opts: ['Python', 'Java', 'Photoshop', 'JavaScript'], correct: 2, explain: 'Photoshop is a design application, not a programming language. Python, Java, and JavaScript are all real programming languages.' },
+    { q: 'What does "www" stand for in a web address?', opts: ['World Wide Web', 'Wide World Website', 'Web World Window', 'World Web Works'], correct: 0, explain: 'WWW = World Wide Web — the system of interlinked documents and resources accessed via the internet.' },
+    { q: 'Which company created the Android operating system?', opts: ['Apple', 'Microsoft', 'Google', 'Samsung'], correct: 2, explain: 'Google created Android in 2003 (originally by Android Inc., acquired by Google). It is now the world\'s most used mobile OS.' },
+    { q: 'What is a "byte" in computing?', opts: ['A single 0 or 1', 'A unit of 8 bits', 'A type of virus', 'A processor speed unit'], correct: 1, explain: 'A byte = 8 bits. Bits are single binary digits (0 or 1). 1 kilobyte = 1,024 bytes, and so on up to gigabytes, terabytes.' },
+    { q: 'What does HTML stand for?', opts: ['HyperText Markup Language', 'High Transfer Markup Language', 'HyperText Machine Learning', 'Home Tool Markup Language'], correct: 0, explain: 'HTML = HyperText Markup Language. It is the standard language used to create and structure web pages.' },
+    { q: 'Which of these is a search engine?', opts: ['Twitter', 'Bing', 'Instagram', 'Spotify'], correct: 1, explain: 'Bing is Microsoft\'s search engine. Twitter, Instagram, and Spotify are social media/entertainment platforms, not search engines.' },
+  ];
+
+  const dayQuestions = [];
+  const seed = today.getDate() + today.getMonth() * 31;
+  for (let i = 0; i < 5; i++) {
+    dayQuestions.push(questions[(seed + i) % questions.length]);
+  }
+
+  let current = 0;
+  let score = 0;
+  let answered = false;
+
+  function renderQuestion() {
+    answered = false;
+    const q = dayQuestions[current];
+    document.getElementById('quiz-counter').textContent = 'Question ' + (current + 1) + ' of ' + dayQuestions.length;
+    document.getElementById('quiz-q').textContent = q.q;
+    document.getElementById('quiz-feedback').style.display = 'none';
+    document.getElementById('quiz-next').style.display = 'none';
+    document.getElementById('quiz-score-display').textContent = '';
+    const optsEl = document.getElementById('quiz-opts');
+    optsEl.innerHTML = '';
+    q.opts.forEach(function(opt, idx) {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-opt';
+      btn.textContent = opt;
+      btn.onclick = function() { checkAnswer(idx); };
+      optsEl.appendChild(btn);
+    });
+  }
+
+  function checkAnswer(idx) {
+    if (answered) return;
+    answered = true;
+    const q = dayQuestions[current];
+    const opts = document.querySelectorAll('.quiz-opt');
+    opts.forEach(function(o) { o.disabled = true; });
+    if (idx === q.correct) {
+      opts[idx].classList.add('correct');
+      score++;
+    } else {
+      opts[idx].classList.add('wrong');
+      opts[q.correct].classList.add('correct');
+    }
+    const fb = document.getElementById('quiz-feedback');
+    fb.textContent = q.explain;
+    fb.style.display = 'block';
+    const next = document.getElementById('quiz-next');
+    if (current < dayQuestions.length - 1) {
+      next.textContent = 'Next question →';
+    } else {
+      next.textContent = 'See my score →';
+    }
+    next.style.display = 'inline-block';
+  }
+
+  function nextQuestion() {
+    current++;
+    if (current >= dayQuestions.length) {
+      document.getElementById('quiz-counter').textContent = 'Quiz complete!';
+      document.getElementById('quiz-q').textContent = 'You scored ' + score + ' out of ' + dayQuestions.length + ' — ' + (score === dayQuestions.length ? 'perfect score! 🎉' : score >= 3 ? 'great effort! 💪' : 'keep practising! 📚');
+      document.getElementById('quiz-opts').innerHTML = '';
+      document.getElementById('quiz-feedback').style.display = 'none';
+      document.getElementById('quiz-next').style.display = 'none';
+      document.getElementById('quiz-score-display').textContent = 'Come back tomorrow for a new set of questions.';
+    } else {
+      renderQuestion();
+    }
+  }
+
+  renderQuestion();
+
+  // SCROLL FADE
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+</script>
+
+</body>
+</html>
